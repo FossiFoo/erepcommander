@@ -1,0 +1,30 @@
+body {
+    font-size:10px;
+}
+
+.center {
+    border-width:1px;
+    border-style:solid;
+    border-color:#CCC;
+    width:800px;
+    margin:auto;
+}
+
+.center a {
+    color:black;
+    font-decoration:none;
+}
+
+.center h2 {
+    font-decoration:underlined;
+}
+
+.center table {
+    text-align:center;
+    width:100%;
+    font-size:small;
+}
+
+.center th {
+    padding-bottom:0.5em;
+}

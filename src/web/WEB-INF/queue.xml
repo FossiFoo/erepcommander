@@ -1,0 +1,7 @@
+<queue-entries>
+  <queue>
+    <name>citizen</name>
+    <rate>4/s</rate>
+    <bucket-size>3</bucket-size>
+  </queue>
+</queue-entries>

@@ -1,0 +1,237 @@
+(ns foo.fossi.erepcommander.admin
+  (:use [foo.fossi.erepcommander model parse_citizen persistence task]
+	[compojure.html]))
+
+"Rudi Rindfleisch"
+"Olli Buster"
+"Dace Supper"
+"Raymen the 3th"
+"El Grande Fisto"
+"Sir Hobi"
+"Franz der Hans"
+"Peter Enis 123"
+"Olaf Lehe"
+"Michael Perdox"
+"Nick Drake"
+"Tom Dwan"
+"Ansgar Ragenthor"
+"Oskar LaFontaine"
+"Norbert Maria Berger"
+"Tobi Tobsen"
+"Pisces Volans"
+"Horst Feratu"
+"Sir Flame"
+"Horst Horstmann"
+"Timeus Karolinger"
+"Zack Daniels"
+"Urin Keller"
+"Harald.B"
+"Mr.Butzemann"
+"Dr.Ilja"
+"E. Kesselring"
+"kapusta_PS.de"
+
+
+(def psdeler
+     [
+"Ozonlochbohrer"
+"zufallsgenie"
+"cyb9r"
+"manuausruben"
+"Steif"
+"Hans12"
+"marddin"
+"Number2"
+"Quisel83"
+"relaxdmuppet"
+"tRiXxXeR"
+"DeVinschi"
+"SuckA81"
+"manic0712"
+"tammi"
+"acehigh"
+"CaspaJena"
+"Contemptuousness"
+"tammi"
+"manic0712"
+"Schmaler"
+"Kawur"
+"Tonnes"
+"g0forg0ld"
+"Nani74suckt"
+"Guenther_Gras"
+"Zerberus1985"
+"TobiasSchr"
+"boeserspawn"
+"Snert"
+"rpaehler"
+"Cherubium"
+"HorsHeftig"
+"assi"
+"Dejawu"
+"Arwed"
+"Deradon"
+"Dudelot"
+"comhamm"
+"Flexlol"
+"Bodycount75"
+"Flomue"
+"KillaPilz"
+"FossiFoo"
+"Discoloco007"
+"wastuichhier"
+"phil089"
+"Birdstyle"
+"Venator89"
+"nippels"
+"Pkay"
+"b3rnS"
+"funat1c"
+"moatse"
+"Economix"
+"Marktschreier"
+"DerBerg"
+"killerfurbel"
+"Schultzlator"
+"tobeyy"
+"McLovin1"
+"troddl123"
+"deristsocrazy"
+"gameto"
+"Slashy"
+"MastaM"
+"Dasch"
+"ultimantorca"
+"with_ears"
+"EvaPoker"
+"kellerlanplayer"
+"LordPoker"
+"LarsDragl"
+"Sulogel"
+"homsch"
+"gcrFU"
+"Rudiru"
+"hacklberry"
+"Skewb"
+"keksino"
+"Gewuerzgurke"
+"stolzDs"
+"delfink"
+"Azal"
+"markydave"
+"Pdragon"
+"Perrygrino"
+"burgingham"
+"Tenebrus"
+"maaR68"
+"Lemmingx"
+"madferit"
+"hatesender"
+"fmod"
+"neo2381"
+"Flenzer"
+"Kohlkopf"
+"dermeister100"
+"ButterflyEffect619"
+"blknd"
+"mrinsane"
+"Werder_Raute"
+"Cicero85"
+"Gonzo0o"
+"JohnBello68"
+"MmAwWe"
+"Raimondo1904"
+"Schmidt91"
+"Aheda"
+"eluniverso"
+"Schlaubi"
+"Tigga"
+"LuckFox"
+"ospro"
+"SlannesH"
+"eagletheeye"
+"mTn_lab"
+"Tropex"
+"ZASTR1"
+"WolleFantastico"
+"TtotheN"
+"onkel_tom"
+"Geth83"
+"Huar"
+"Lahahars"
+"Jul1C4SH"
+"niknik88"
+"1/2man1/2drunk"
+"Maart"
+"placeboeffekt18"
+"TheAuthority"
+"daTid"
+"Troubleshooter"
+"Coinflip"
+"physeagle"
+"AWESOME"
+"Anaxi"
+"RichAndFamous"
+"flip269"
+"Hans_Maulwurf"
+"thomino13"
+"PeterPetersilie"
+"DonSalva"
+"Staubsauger"
+"otterkobb"
+"fafda"
+"dusterl"
+"ger"
+"ReLuXe"
+"daTidus"
+"Cadalson"
+"Oetgen"
+"Hermedicus"
+"Schulle32"
+"eWidukindsson"
+"Salokin123"
+"v1rtu"
+"RichAndFamous"
+"NaKrull"
+"Balsekar"
+"sandqualle"
+"Baer21"
+])
+
+(defn update
+  [name]
+  (enqueue-citizen-update name)) 
+
+(defn update-all
+  []
+  (for [citizen (find-all-citizens)]
+    (do
+      (update (:name citizen)))))
+
+(defn init-psler
+  []
+  (for [name psdeler]
+    (do
+      (if (nil? (get-citizen-by-name name))
+	(first (store-citizen (init-citizen name)))))))
+
+(defn init-ps
+  []
+  (let [psler (init-psler)]
+    (make-group 
+     1
+     "PS.de"
+     (count psler)
+     (map :id psler))))
+
+(defn drop-all
+  []
+  (for [{key :key} (find-all-citizens)] (delete-by-key key)))
+
+(defn admin-handler
+  [{{call :*} :params}]
+  (condp = call
+    "init" (html (init-ps))
+    "update" (html (update-all))
+    "drop" (html (drop-all))
+    (html "denied.")))

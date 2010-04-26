@@ -1,0 +1,48 @@
+eRepublik Commander for GAE
+
+- INSTALL
+
+ lokal: 
+  in / wechseln und slime starten
+  (in-ns 'foo.fossi.erepcommander.start)
+  (start-server)
+
+ remote:
+  appcfg.sh update dist/
+
+- TODO
+
+ = Commander
+
+ - DataStore speichern
+  + Benutzer anlegen
+  + Snapshot speichern
+  - Rohdaten speichern
+  - Kindeinträge
+
+ - DS lesen
+  + Listenansicht
+  - Sortierung
+  - Detailseiten
+  - Caching
+
+ + Queue update
+ - Registrieren (inkl ref)
+ - Graphen
+ - Befehle/Meldungen
+
+ - Berichte
+  - Wellness
+  - Anzahl Mitglieder
+  - Statistiken (Ausland etc)
+
+ = Artikeleditor
+
+ - Ausprobieren
+ - Markup entwerfen
+ - Übersetzer schreiben
+
+ = Firmentools?
+
+- License:
+private, (C) Fossi
